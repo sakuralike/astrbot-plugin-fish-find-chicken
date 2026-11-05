@@ -115,4 +115,3 @@ def format_results(
         lines.append("")
         lines.append("不同引擎未形成充分一致，请自行核对来源链接。")
     return "\n".join(lines)
-

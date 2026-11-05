@@ -327,4 +327,3 @@ async def search_engine(
         except Exception as error:
             return EngineResult(engine=engine, error=type(error).__name__)
     return EngineResult(engine=engine, error="unsupported_engine")
-

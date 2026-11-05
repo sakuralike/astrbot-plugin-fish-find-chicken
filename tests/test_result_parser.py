@@ -59,4 +59,3 @@ class ResultParserTests(unittest.TestCase):
         text = format_results(rows)
         self.assertIn("仅供参考", text)
         self.assertIn("https://weibo.com/demo", text)
-

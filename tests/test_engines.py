@@ -61,4 +61,3 @@ class EngineParserTests(unittest.TestCase):
             search_engine("lens", b"image", "image/png")
         )
         self.assertEqual(result.error, "browser_unavailable")
-
