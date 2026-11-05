@@ -70,6 +70,19 @@ class MainTests(TestCase):
         )
         self.assertEqual(plugin._scope(event), "default_1905349550|qq_official|group-1")
 
+    def test_qq_official_scope_accepts_reversed_identity_fields(self):
+        module = load_main()
+        plugin = object.__new__(module.FishFindChickenPlugin)
+        plugin.enabled = True
+        plugin.allowed_groups = {"default_1905349550|qq_official|group-1"}
+        event = types.SimpleNamespace(
+            get_group_id=lambda: "group-1",
+            get_platform_id=lambda: "qq_official",
+            get_self_id=lambda: "default_1905349550",
+            get_platform_name=lambda: "qq_official",
+        )
+        self.assertEqual(plugin._scope(event), "qq_official|default_1905349550|group-1")
+
     def test_custom_filter_matches_command_with_image_placeholder(self):
         module = load_main()
         plugin = object.__new__(module.FishFindChickenPlugin)
