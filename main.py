@@ -78,6 +78,21 @@ def _actor_key(event: AstrMessageEvent) -> str:
     )
 
 
+class FishCommandFilter(filter.CustomFilter):
+    plugin: Any = None
+
+    def filter(self, event: AstrMessageEvent, cfg: AstrBotConfig) -> bool:
+        plugin = type(self).plugin
+        if plugin is None:
+            return False
+        if plugin._scope(event) is None:
+            return False
+        return parse_command(
+            getattr(event, "message_str", "") or event.get_message_str(),
+            plugin.command,
+        )
+
+
 class FishFindChickenPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
@@ -92,6 +107,7 @@ class FishFindChickenPlugin(Star):
         self.temp_dir = (
             Path(get_astrbot_data_path()) / "plugin_data" / PLUGIN_ID / "tmp"
         )
+        FishCommandFilter.plugin = self
         self._configure_command()
 
     def _configure_command(self) -> None:
@@ -203,7 +219,7 @@ class FishFindChickenPlugin(Star):
     async def on_loaded(self) -> None:
         self.temp_dir.mkdir(parents=True, exist_ok=True)
 
-    @filter.command(DEFAULT_COMMAND)
+    @filter.custom_filter(FishCommandFilter, priority=100)
     async def reverse_search(self, event: AstrMessageEvent) -> None:
         if self._scope(event) is None:
             return

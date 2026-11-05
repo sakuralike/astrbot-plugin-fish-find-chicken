@@ -31,8 +31,13 @@ def load_main():
     )
     modules["astrbot.api.event"].AstrMessageEvent = object
     modules["astrbot.api.event"].MessageChain = list
+    class CustomFilter:
+        pass
+
     modules["astrbot.api.event"].filter = types.SimpleNamespace(
+        CustomFilter=CustomFilter,
         command=decorator,
+        custom_filter=lambda *args, **kwargs: decorator,
         on_astrbot_loaded=decorator,
     )
     modules["astrbot.api.message_components"].Plain = str
@@ -64,3 +69,20 @@ class MainTests(TestCase):
             get_platform_name=lambda: "qq_official",
         )
         self.assertEqual(plugin._scope(event), "default_1905349550|qq_official|group-1")
+
+    def test_custom_filter_matches_command_with_image_placeholder(self):
+        module = load_main()
+        plugin = object.__new__(module.FishFindChickenPlugin)
+        plugin.enabled = True
+        plugin.command = "鱼鱼找鸡"
+        plugin.allowed_groups = {"default_1905349550|qq_official|group-1"}
+        module.FishCommandFilter.plugin = plugin
+        event = types.SimpleNamespace(
+            message_str="/鱼鱼找鸡 [图片]",
+            get_message_str=lambda: "/鱼鱼找鸡 [图片]",
+            get_group_id=lambda: "group-1",
+            get_platform_id=lambda: "default_1905349550",
+            get_self_id=lambda: "qq_official",
+            get_platform_name=lambda: "qq_official",
+        )
+        self.assertTrue(module.FishCommandFilter().filter(event, {}))
