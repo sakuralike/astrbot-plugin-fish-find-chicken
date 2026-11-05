@@ -1,0 +1,112 @@
+{
+  "enabled": {
+    "type": "bool",
+    "description": "启用鱼鱼找鸡",
+    "default": false,
+    "hint": "只在 allowed_groups 配置的群内处理反向图片搜索。"
+  },
+  "command": {
+    "type": "string",
+    "description": "反查图片命令",
+    "default": "鱼鱼找鸡",
+    "hint": "可填写自定义命令词，不含 / 或空格；/鱼鱼找鸡始终作为兼容别名。"
+  },
+  "allowed_groups": {
+    "type": "list",
+    "description": "允许使用的群范围",
+    "default": [],
+    "hint": "可填群 ID、平台 ID|群 ID 或平台 ID|机器人 ID|群 ID；空列表禁止所有群。"
+  },
+  "engines": {
+    "type": "list",
+    "description": "启用的搜索引擎",
+    "default": [
+      "saucenao",
+      "tracemoe",
+      "iqdb"
+    ],
+    "hint": "HTTP 引擎：saucenao、tracemoe、iqdb；浏览器引擎：lens、yandex、bing、baidu、google。"
+  },
+  "strict_consensus": {
+    "type": "bool",
+    "description": "启用严格一致性过滤",
+    "default": true
+  },
+  "max_accounts": {
+    "type": "int",
+    "description": "最多返回候选数",
+    "default": 3,
+    "slider": {
+      "min": 1,
+      "max": 10,
+      "step": 1
+    }
+  },
+  "cooldown_seconds": {
+    "type": "int",
+    "description": "单用户冷却时间（秒）",
+    "default": 30,
+    "slider": {
+      "min": 0,
+      "max": 3600,
+      "step": 1
+    }
+  },
+  "timeout_seconds": {
+    "type": "int",
+    "description": "单次搜索超时时间（秒）",
+    "default": 45,
+    "slider": {
+      "min": 5,
+      "max": 180,
+      "step": 5
+    }
+  },
+  "max_image_bytes": {
+    "type": "int",
+    "description": "图片最大字节数",
+    "default": 10485760,
+    "slider": {
+      "min": 1048576,
+      "max": 52428800,
+      "step": 1048576
+    }
+  },
+  "max_pixels": {
+    "type": "int",
+    "description": "图片最大像素数",
+    "default": 20000000,
+    "slider": {
+      "min": 10000,
+      "max": 100000000,
+      "step": 1000000
+    }
+  },
+  "proxy": {
+    "type": "string",
+    "description": "搜索代理",
+    "default": "",
+    "hint": "可填写 http:// 或 socks5:// 代理地址；不会写入日志。"
+  },
+  "browser_enabled": {
+    "type": "bool",
+    "description": "启用浏览器搜索引擎",
+    "default": true,
+    "hint": "需要服务器安装 Playwright Chromium；浏览器不可用时会自动跳过。"
+  },
+  "browser_timeout_seconds": {
+    "type": "int",
+    "description": "浏览器引擎超时时间（秒）",
+    "default": 45,
+    "slider": {
+      "min": 5,
+      "max": 180,
+      "step": 5
+    }
+  },
+  "privacy_notice": {
+    "type": "bool",
+    "description": "发送第三方搜索隐私提示",
+    "default": true
+  }
+}
