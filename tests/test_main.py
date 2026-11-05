@@ -51,3 +51,16 @@ class MainTests(TestCase):
         self.assertTrue(module.parse_command("鱼鱼找鸡"))
         self.assertTrue(module.parse_command("/反查图片", "反查图片"))
         self.assertFalse(module.parse_command("/其他"))
+
+    def test_qq_official_scope_accepts_platform_type_alias(self):
+        module = load_main()
+        plugin = object.__new__(module.FishFindChickenPlugin)
+        plugin.enabled = True
+        plugin.allowed_groups = {"default_1905349550|qq_official|group-1"}
+        event = types.SimpleNamespace(
+            get_group_id=lambda: "group-1",
+            get_platform_id=lambda: "default_1905349550",
+            get_self_id=lambda: "qq_official",
+            get_platform_name=lambda: "qq_official",
+        )
+        self.assertEqual(plugin._scope(event), "default_1905349550|qq_official|group-1")

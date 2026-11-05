@@ -128,6 +128,8 @@ class FishFindChickenPlugin(Star):
             if platform_id and bot_id
             else "",
         }
+        if str(event.get_platform_name() or "") == "qq_official" and platform_id:
+            candidates.add(f"{platform_id}|qq_official|{group_id}")
         candidates.discard("")
         if "*" not in self.allowed_groups and not candidates.intersection(
             self.allowed_groups
