@@ -83,6 +83,19 @@ class MainTests(TestCase):
         )
         self.assertIsNotNone(plugin._scope(event))
 
+    def test_empty_group_list_allows_any_group(self):
+        module = load_main()
+        plugin = object.__new__(module.FishFindChickenPlugin)
+        plugin.enabled = True
+        plugin.allowed_groups = set()
+        event = types.SimpleNamespace(
+            get_group_id=lambda: "other-group",
+            get_platform_id=lambda: "other-platform",
+            get_self_id=lambda: "other-bot",
+            get_platform_name=lambda: "qq_official",
+        )
+        self.assertEqual(plugin._scope(event), "other-platform|other-bot|other-group")
+
     def test_qq_official_scope_accepts_reversed_identity_fields(self):
         module = load_main()
         plugin = object.__new__(module.FishFindChickenPlugin)

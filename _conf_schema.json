@@ -15,7 +15,7 @@
     "type": "list",
     "description": "允许使用的群范围",
     "default": [],
-    "hint": "可填群 ID、平台 ID|群 ID 或平台 ID|机器人 ID|群 ID；空列表禁止所有群。"
+    "hint": "可填群 ID、平台 ID|群 ID 或平台 ID|机器人 ID|群 ID；空列表允许所有群。"
   },
   "engines": {
     "type": "list",

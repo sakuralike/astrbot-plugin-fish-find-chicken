@@ -17,7 +17,7 @@
 ## 配置
 
 - `enabled`：插件总开关，默认关闭。
-- `allowed_groups`：完整群范围白名单，空列表禁止所有群。
+- `allowed_groups`：完整群范围白名单，空列表允许所有群。
 - `command`：主命令，默认 `鱼鱼找鸡`；默认命令始终保留。
 - `engines`：搜索引擎列表。
 - `strict_consensus`：多个引擎结果不一致时过滤低可信候选。

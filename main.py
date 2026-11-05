@@ -149,7 +149,7 @@ class FishFindChickenPlugin(Star):
         if bot_id:
             candidates.add(f"{bot_id}|qq_official|{group_id}")
         candidates.discard("")
-        if "*" not in self.allowed_groups and not candidates.intersection(
+        if self.allowed_groups and "*" not in self.allowed_groups and not candidates.intersection(
             self.allowed_groups
         ):
             return None

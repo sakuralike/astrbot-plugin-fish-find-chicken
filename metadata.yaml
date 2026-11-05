@@ -1,7 +1,7 @@
 name: astrbot_plugin_fish_find_chicken
 display_name: 鱼鱼找鸡
 desc: 反向搜索群图片中的公开账号和来源链接。
-version: 0.1.3
+version: 0.1.4
 author: sakuralike
 support_platforms:
   - aiocqhttp
