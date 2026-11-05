@@ -70,6 +70,19 @@ class MainTests(TestCase):
         )
         self.assertEqual(plugin._scope(event), "default_1905349550|qq_official|group-1")
 
+    def test_qq_official_scope_alias_does_not_depend_on_platform_name(self):
+        module = load_main()
+        plugin = object.__new__(module.FishFindChickenPlugin)
+        plugin.enabled = True
+        plugin.allowed_groups = {"default_1905349550|qq_official|group-1"}
+        event = types.SimpleNamespace(
+            get_group_id=lambda: "group-1",
+            get_platform_id=lambda: "default_1905349550",
+            get_self_id=lambda: "qq_official",
+            get_platform_name=lambda: "qq_official_webhook",
+        )
+        self.assertIsNotNone(plugin._scope(event))
+
     def test_qq_official_scope_accepts_reversed_identity_fields(self):
         module = load_main()
         plugin = object.__new__(module.FishFindChickenPlugin)
