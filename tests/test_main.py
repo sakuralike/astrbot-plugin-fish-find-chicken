@@ -47,6 +47,7 @@ class MainTests(TestCase):
     def test_command_parser_accepts_default_and_custom_names(self):
         module = load_main()
         self.assertTrue(module.parse_command("/鱼鱼找鸡"))
+        self.assertTrue(module.parse_command("/鱼鱼找鸡 [图片]"))
         self.assertTrue(module.parse_command("鱼鱼找鸡"))
         self.assertTrue(module.parse_command("/反查图片", "反查图片"))
         self.assertFalse(module.parse_command("/其他"))

@@ -49,8 +49,13 @@ def parse_command(text: str, command: str = DEFAULT_COMMAND) -> bool:
     names = {DEFAULT_COMMAND.lower(), _command(command).lower()}
     if not raw:
         return False
-    first = raw.lstrip("/").split(None, 1)[0].lower()
-    return first in names and len(raw.split(None, 1)) == 1
+    parts = raw.lstrip("/").split(None, 1)
+    first = parts[0].lower()
+    if first not in names:
+        return False
+    if len(parts) == 1:
+        return True
+    return parts[1].strip().lower() in {"[图片]", "[image]"}
 
 
 def _message_id(event: AstrMessageEvent) -> str:
